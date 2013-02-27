@@ -54,7 +54,7 @@ module Pingr
   # Returns a String with the logger name or an IO object
   def self.logger_name
     if defined?(Rails)
-      Rails.join('log', "pingr.#{Rails.env}.log")
+      Rails.root.join('log', "pingr.#{Rails.env}.log")
     else
       STDOUT
     end
