@@ -46,7 +46,7 @@ module Pingr
     # Returns true if ping was a success
     # Returns false if ping was not successful
     def ping
-      return true unless Pingr.mode == :test
+      return true unless Pingr.mode == :live
       uri     = URI.parse("http://#{search_engine}.com/#{ping_path}")
       http    = Net::HTTP.new(uri.host, uri.port)
       request = Net::HTTP::Get.new(uri.request_uri)
