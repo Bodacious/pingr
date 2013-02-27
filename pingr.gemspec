@@ -7,10 +7,10 @@ Gem::Specification.new do |gem|
   gem.name          = "pingr"
   gem.version       = Pingr::VERSION
   gem.authors       = ["Bodacious"]
-  gem.email         = ["gavin@katanacode.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
-  gem.homepage      = ""
+  gem.email         = ["bodacious@katanacode.com"]
+  gem.description   = %q{A simple gem for pinging search engines with your XML sitemap}
+  gem.summary       = %q{Ping search engines with your XML Sitemap}
+  gem.homepage      = "https://github.com/KatanaCode/pingr"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
