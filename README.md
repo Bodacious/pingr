@@ -39,12 +39,13 @@ class PostsController < ActionController::Base
   
   def ping_sitemaps
     Pingr::Request.new(:google, my_sitemap_url).ping
+    Pingr::Request.new(:bing, my_sitemap_url).ping
   end
   
 end
 ```
 
-You can ping all supported search engines by doing:
+You can ping all [supported search engines](/lib/pingr.rb) by doing:
 
 ``` ruby
 def ping_sitemaps
