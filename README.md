@@ -45,7 +45,7 @@ class PostsController < ActionController::Base
 end
 ```
 
-You can ping all [supported search engines](/lib/pingr.rb) by doing:
+You can ping all [supported search engines](https://github.com/KatanaCode/pingr/blob/master/lib/pingr.rb#L9) by doing:
 
 ``` ruby
 def ping_sitemaps

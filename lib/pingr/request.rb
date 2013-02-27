@@ -1,54 +1,72 @@
 module Pingr
+  
+  # Public: The object created to ping a search engine with a sitemap
   class Request
 
     require 'logger'
-
-    attr_accessor :url, :search_engine
-
-    require 'net/http'
+    require 'net/http' 
     require 'uri'
 
-    def initialize(search_engine, url)
-      self.search_engine = search_engine
-      self.url = url
+    # Public: Gets/Sets the String url of the sitemap we're submitting
+    attr_accessor :sitemap_url
+    
+    # Public: Gets/Sets the String or Symbol name of the search engine we're pinging
+    attr_accessor :search_engine
+
+    # Public: Initialize a new ping request
+    # 
+    # search_engine - A String or Symbol name of the search engine we're pinging
+    # sitemap_url - A String url of the sitemap we're submitting
+    # 
+    # Returns a Pingr::Request object
+    def initialize(search_engine, sitemap_url)
+      self.search_engine = search_engine.to_sym
+      self.sitemap_url = sitemap_url
     end
 
+    # Public: The path to ping to submit sitemaps for this search_engine
+    # 
+    # Returns a String with the correct path to submit sitemaps
+    # 
+    # Raises: A PingrError if the search_engine attribute's value is not supported
     def ping_path
       case search_engine
         # http://www.google.com/webmasters/tools/ping?sitemap=
-      when :google then "/webmasters/tools/ping?sitemap=#{URI.escape(url)}"
+      when :google then "webmasters/tools/ping?sitemap=#{URI.escape(sitemap_url)}"
         # http://www.bing.com/ping?sitemap=
-      when :bing then "/ping?sitemap=#{URI.escape(url)}"
+      when :bing then "ping?sitemap=#{URI.escape(sitemap_url)}"
       else
         raise PingrError, "Don't know how to ping search engine: #{search_engine}"
       end
     end
 
+    # Public: Perform the ping request (if in :live mode)
+    # Logs the success/failure of the ping in logger.
+    # 
+    # Returns true if ping was a success
+    # Returns false if ping was not successful
     def ping
       return true unless Pingr.mode == :test
-      uri     = URI.parse("http://#{search_engine}.com#{ping_path}")
+      uri     = URI.parse("http://#{search_engine}.com/#{ping_path}")
       http    = Net::HTTP.new(uri.host, uri.port)
       request = Net::HTTP::Get.new(uri.request_uri)
       response = http.request(request)
       if response.code.to_s =~ /200|301/
         logger.info "Pinged #{search_engine} Successfully - #{Time.now}"
+        return true
       else
         logger.warn "Error pinging #{search_engine}! (response code: #{response.code})- #{Time.now}"
+        return false
       end
     end
 
     private
-
+    
+    # Private: A helper method to access Pingr::logger
+    # 
+    # Returns A Logger instance
     def logger
-      @logger ||= Logger.new(logger_name, shift_age = 'weekly')
-    end
-
-    def logger_name
-      if defined?(Rails)
-        Rails.join('log', "pingr.#{Rails.env}.log")
-      else
-        STDOUT
-      end
+      Pingr.logger
     end
     
   end
