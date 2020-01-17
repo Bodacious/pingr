@@ -26,6 +26,7 @@ module Pingr
       # Returns false if ping was not successful
       def ping
         return true unless Pingr.mode == :live
+
         ssl = ping_url.scheme == 'https'
         Net::HTTP.start(ping_url.host, ping_url.port, use_ssl: ssl) do |http|
           request = Net::HTTP::Get.new(ping_url)
