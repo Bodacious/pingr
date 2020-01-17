@@ -2,10 +2,8 @@
 
 module Pingr
   module SearchEngines
-
     # Public: The object created to ping a search engine with a sitemap
     class Base
-
       require 'logger'
       require 'net/http'
       require 'uri'
@@ -29,6 +27,7 @@ module Pingr
       # Returns false if ping was not successful
       def ping
         return true unless Pingr.mode == :live
+
         Net::HTTP.start(ping_url.host, ping_url.port, use_ssl: ping_url.scheme == 'https') do |http|
           request = Net::HTTP::Get.new(ping_url)
           response = http.request(request)
@@ -58,7 +57,6 @@ module Pingr
       def logger
         Pingr.logger
       end
-
     end
   end
 end

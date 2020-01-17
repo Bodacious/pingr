@@ -1,8 +1,9 @@
-require "pingr/version"
-require "pingr/request"
+# frozen_string_literal: true
+
+require 'pingr/version'
+require 'pingr/request'
 
 module Pingr
-
   # Exceptions raised from within Pingr are of this class
   class PingrError < StandardError; end
 
@@ -12,7 +13,10 @@ module Pingr
   #
   # Raises PingrError if an invalid value is passed
   def self.mode=(mode_name)
-    raise PingrError, "Unknown mode: #{mode_name}" unless mode_name.to_s =~ /test|live/
+    unless mode_name.to_s =~ /test|live/
+      raise PingrError, "Unknown mode: #{mode_name}"
+    end
+
     @mode = mode_name.to_sym
   end
 
@@ -56,5 +60,4 @@ module Pingr
       STDOUT
     end
   end
-
 end

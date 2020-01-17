@@ -2,10 +2,9 @@
 
 module Pingr
   module SearchEngines
-    require "pingr/search_engines/base"
+    require 'pingr/search_engines/base'
 
     class Bing < Base
-
       private
 
       def search_engine
@@ -18,7 +17,6 @@ module Pingr
       def ping_url
         URI("https://www.bing.com/ping?sitemap=#{URI.escape(sitemap_url)}")
       end
-
     end
   end
 end
