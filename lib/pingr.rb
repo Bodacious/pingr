@@ -4,6 +4,10 @@ require 'pingr/version'
 require 'pingr/request'
 
 module Pingr
+
+  require 'logger'
+
+
   # Exceptions raised from within Pingr are of this class
   class PingrError < StandardError; end
 
@@ -37,7 +41,11 @@ module Pingr
   #
   # Returns a Logger object. By default, the log clears itself every week
   def self.logger
-    @logger ||= Logger.new(logger_name, shift_age = 'weekly')
+    @logger ||= if defined?(Rails)
+      Rails.logger
+    else
+      Logger.new(logger_name, shift_age = 'weekly')
+    end
   end
 
   # Public: Sets the logger to be used.
