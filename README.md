@@ -22,7 +22,7 @@ From within your app (most likely a controller):
 
 ``` ruby
 def ping_sitemaps
-  Pingr::Request.new(:google, my_sitemap_url).ping
+  Pingr::Request.new(my_sitemap_url) # This will ping Google and Bing
 end
 ```
 
@@ -38,24 +38,15 @@ class PostsController < ActionController::Base
   private
 
   def ping_sitemaps
-    Pingr::Request.new(:google, my_sitemap_url).ping
-    Pingr::Request.new(:bing, my_sitemap_url).ping
+    Pingr::Request.new(my_sitemap_url)
   end
 
 end
 ```
 
-You can ping all [supported search engines](https://github.com/KatanaCode/pingr/blob/master/lib/pingr.rb#L9) by doing:
+You can view the [supported search engines](https://github.com/KatanaCode/pingr/tree/master/lib/pingr/search_engines) and add your own by viewing the code in this directory:
 
-``` ruby
-def ping_sitemaps
-  for search_engine in Pingr::SUPPORTED_SEARCH_ENGINES
-    Pingr::Request.new(search_engine, my_sitemap_url).ping
-  end
-end
-```
-
-... not the most elegant solution but we'll improve that in future versions.
+https://github.com/KatanaCode/pingr/tree/master/lib/pingr/search_engines
 
 ## Modes
 
