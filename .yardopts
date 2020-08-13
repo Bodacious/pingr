@@ -1,0 +1,7 @@
+--plugin tomdoc
+--private
+--hide-void-return
+--title "Pingr"
+--output-dir=docs
+--markup=markdown
+--markup-provider=redcarpet

@@ -32,16 +32,16 @@ A good way to do this would be using Rails's after filters:
 class PostsController < ActionController::Base
 
   after_filter :ping_sitemaps, only: [:create, :update, :destroy]
-  
-  # ... 
-  
+
+  # ...
+
   private
-  
+
   def ping_sitemaps
     Pingr::Request.new(:google, my_sitemap_url).ping
     Pingr::Request.new(:bing, my_sitemap_url).ping
   end
-  
+
 end
 ```
 
@@ -79,6 +79,6 @@ Pingr.mode = :live if Rails.env =~ /staging|production/
 5. Create new Pull Request
 
 
-## About Katana Code
+## About Katana
 
-Katana Code are [iPhone app and Ruby on Rails Developers in Edinburgh, Scotland](http://katanacode.com/ "Katana Code").
+Katana are [web and mobile app developers in Edinburgh, Scotland](http://katanacode.com/ "Katana Code").

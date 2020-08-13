@@ -57,13 +57,13 @@
         <div class="clear"></div>
       </div>
 
-      <div id="content"><div id='filecontents'><h1 id="pingr---tell-search-engines-about-your-sitemap-changes">Pingr - Tell search engines about your sitemap changes</h1>
+      <div id="content"><div id='filecontents'><h1>Pingr - Tell search engines about your sitemap changes</h1>
 
 <p>Pingr is a super-simple gem built for the <a href="http://github.com/KatanaCode/blogit" title="A Rails Blogging Engine">blogit</a> project.</p>
 
-<h2 id="installation">Installation</h2>
+<h2>Installation</h2>
 
-<p>Add this line to your application’s Gemfile:</p>
+<p>Add this line to your application&#39;s Gemfile:</p>
 
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_gem'>gem</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>pingr</span><span class='tstring_end'>&#39;</span></span>
 </code></pre>
@@ -78,77 +78,73 @@
 <pre class="code ruby"><code class="ruby">$ gem install pingr
 </code></pre>
 
-<h2 id="usage">Usage</h2>
+<h2>Usage</h2>
 
 <p>From within your app (most likely a controller):</p>
 
-<p><code>ruby
-def ping_sitemaps
-  Pingr::Request.new(:google, my_sitemap_url).ping
-end
-</code></p>
+<pre class="code ruby"><code class="ruby"><span class='kw'>def</span> <span class='id identifier rubyid_ping_sitemaps'>ping_sitemaps</span>
+  <span class='const'><span class='object_link'><a href="Pingr.html" title="Pingr (module)">Pingr</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Pingr/Request.html" title="Pingr::Request (class)">Request</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Pingr/Request.html#initialize-instance_method" title="Pingr::Request#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='symbol'>:google</span><span class='comma'>,</span> <span class='id identifier rubyid_my_sitemap_url'>my_sitemap_url</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_ping'>ping</span>
+<span class='kw'>end</span>
+</code></pre>
 
-<p>A good way to do this would be using Rails’s after filters:</p>
+<p>A good way to do this would be using Rails&#39;s after filters:</p>
 
-<p>``` ruby
-class PostsController &lt; ActionController::Base</p>
+<pre class="code ruby"><code class="ruby"><span class='kw'>class</span> <span class='const'>PostsController</span> <span class='op'>&lt;</span> <span class='const'>ActionController</span><span class='op'>::</span><span class='const'>Base</span>
 
-<p>after_filter :ping_sitemaps, only: [:create, :update, :destroy]</p>
+  <span class='id identifier rubyid_after_filter'>after_filter</span> <span class='symbol'>:ping_sitemaps</span><span class='comma'>,</span> <span class='label'>only:</span> <span class='lbracket'>[</span><span class='symbol'>:create</span><span class='comma'>,</span> <span class='symbol'>:update</span><span class='comma'>,</span> <span class='symbol'>:destroy</span><span class='rbracket'>]</span>
 
-<p># …</p>
+  <span class='comment'># ...
+</span>
+  <span class='id identifier rubyid_private'>private</span>
 
-<p>private</p>
+  <span class='kw'>def</span> <span class='id identifier rubyid_ping_sitemaps'>ping_sitemaps</span>
+    <span class='const'><span class='object_link'><a href="Pingr.html" title="Pingr (module)">Pingr</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Pingr/Request.html" title="Pingr::Request (class)">Request</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Pingr/Request.html#initialize-instance_method" title="Pingr::Request#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='symbol'>:google</span><span class='comma'>,</span> <span class='id identifier rubyid_my_sitemap_url'>my_sitemap_url</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_ping'>ping</span>
+    <span class='const'><span class='object_link'><a href="Pingr.html" title="Pingr (module)">Pingr</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Pingr/Request.html" title="Pingr::Request (class)">Request</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Pingr/Request.html#initialize-instance_method" title="Pingr::Request#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='symbol'>:bing</span><span class='comma'>,</span> <span class='id identifier rubyid_my_sitemap_url'>my_sitemap_url</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_ping'>ping</span>
+  <span class='kw'>end</span>
 
-<p>def ping_sitemaps
-    Pingr::Request.new(:google, my_sitemap_url).ping
-    Pingr::Request.new(:bing, my_sitemap_url).ping
-  end</p>
-
-<p>end
-```</p>
+<span class='kw'>end</span>
+</code></pre>
 
 <p>You can ping all <a href="https://github.com/KatanaCode/pingr/blob/master/lib/pingr.rb#L9">supported search engines</a> by doing:</p>
 
-<p><code>ruby
-def ping_sitemaps
-  for search_engine in Pingr::SUPPORTED_SEARCH_ENGINES
-    Pingr::Request.new(search_engine, my_sitemap_url).ping
-  end
-end
-</code></p>
+<pre class="code ruby"><code class="ruby"><span class='kw'>def</span> <span class='id identifier rubyid_ping_sitemaps'>ping_sitemaps</span>
+  <span class='kw'>for</span> <span class='id identifier rubyid_search_engine'>search_engine</span> <span class='kw'>in</span> <span class='const'><span class='object_link'><a href="Pingr.html" title="Pingr (module)">Pingr</a></span></span><span class='op'>::</span><span class='const'>SUPPORTED_SEARCH_ENGINES</span>
+    <span class='const'><span class='object_link'><a href="Pingr.html" title="Pingr (module)">Pingr</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Pingr/Request.html" title="Pingr::Request (class)">Request</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Pingr/Request.html#initialize-instance_method" title="Pingr::Request#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_search_engine'>search_engine</span><span class='comma'>,</span> <span class='id identifier rubyid_my_sitemap_url'>my_sitemap_url</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_ping'>ping</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span>
+</code></pre>
 
-<p>… not the most elegant solution but we’ll improve that in future versions.</p>
+<p>... not the most elegant solution but we&#39;ll improve that in future versions.</p>
 
-<h2 id="modes">Modes</h2>
+<h2>Modes</h2>
 
-<p>By default, Pingr is set to <strong>:test</strong> mode, meaning it won’t actually perform the requests. If the Rails environment is :production then the mode is set to <strong>:live</strong> which <em>will</em> perform requests to the search engines.</p>
+<p>By default, Pingr is set to <strong>:test</strong> mode, meaning it won&#39;t actually perform the requests. If the Rails environment is :production then the mode is set to <strong>:live</strong> which <em>will</em> perform requests to the search engines.</p>
 
 <p>You can change this by manually setting <code>Pingr.mode</code></p>
 
-<p><code>ruby
-# in config/initializers/pingr.rb
-Pingr.mode = :live if Rails.env =~ /staging|production/
-</code></p>
+<pre class="code ruby"><code class="ruby"><span class='comment'># in config/initializers/pingr.rb
+</span><span class='const'><span class='object_link'><a href="Pingr.html" title="Pingr (module)">Pingr</a></span></span><span class='period'>.</span><span class='id identifier rubyid_mode'><span class='object_link'><a href="Pingr.html#mode-class_method" title="Pingr.mode (method)">mode</a></span></span> <span class='op'>=</span> <span class='symbol'>:live</span> <span class='kw'>if</span> <span class='const'>Rails</span><span class='period'>.</span><span class='id identifier rubyid_env'>env</span> <span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>staging|production</span><span class='regexp_end'>/</span></span>
+</code></pre>
 
 <p><strong>NOTE:</strong> Search engines may penalise or black-list you if you perform too many requests - they recommend no more than one per hour.</p>
 
-<h2 id="contributing">Contributing</h2>
+<h2>Contributing</h2>
 
 <ol>
-  <li>Fork it</li>
-  <li>Create your feature branch (<code>git checkout -b my-new-feature</code>)</li>
-  <li>Commit your changes (<code>git commit -am 'Add some feature'</code>)</li>
-  <li>Push to the branch (<code>git push origin my-new-feature</code>)</li>
-  <li>Create new Pull Request</li>
+<li>Fork it</li>
+<li>Create your feature branch (<code>git checkout -b my-new-feature</code>)</li>
+<li>Commit your changes (<code>git commit -am &#39;Add some feature&#39;</code>)</li>
+<li>Push to the branch (<code>git push origin my-new-feature</code>)</li>
+<li>Create new Pull Request</li>
 </ol>
 
-<h2 id="about-katana-code">About Katana Code</h2>
+<h2>About Katana</h2>
 
-<p>Katana Code are <a href="http://katanacode.com/" title="Katana Code">iPhone app and Ruby on Rails Developers in Edinburgh, Scotland</a>.</p>
+<p>Katana are <a href="http://katanacode.com/" title="Katana Code">web and mobile app developers in Edinburgh, Scotland</a>.</p>
 </div></div>
 
       <div id="footer">
-  Generated on Thu Aug 13 16:17:41 2020 by
+  Generated on Thu Aug 13 16:24:41 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.24 (ruby-2.6.6).
 </div>
