@@ -83,8 +83,8 @@
 <p>From within your app (most likely a controller):</p>
 
 <pre class="code ruby"><code class="ruby"><span class='kw'>def</span> <span class='id identifier rubyid_ping_sitemaps'>ping_sitemaps</span>
-  <span class='const'><span class='object_link'><a href="Pingr.html" title="Pingr (module)">Pingr</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Pingr/Request.html" title="Pingr::Request (class)">Request</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Pingr/Request.html#initialize-instance_method" title="Pingr::Request#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='symbol'>:google</span><span class='comma'>,</span> <span class='id identifier rubyid_my_sitemap_url'>my_sitemap_url</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_ping'>ping</span>
-<span class='kw'>end</span>
+  <span class='const'><span class='object_link'><a href="Pingr.html" title="Pingr (module)">Pingr</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Pingr/Request.html" title="Pingr::Request (class)">Request</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Pingr/Request.html#initialize-instance_method" title="Pingr::Request#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_my_sitemap_url'>my_sitemap_url</span><span class='rparen'>)</span> <span class='comment'># This will ping Google and Bing
+</span><span class='kw'>end</span>
 </code></pre>
 
 <p>A good way to do this would be using Rails&#39;s after filters:</p>
@@ -98,23 +98,15 @@
   <span class='id identifier rubyid_private'>private</span>
 
   <span class='kw'>def</span> <span class='id identifier rubyid_ping_sitemaps'>ping_sitemaps</span>
-    <span class='const'><span class='object_link'><a href="Pingr.html" title="Pingr (module)">Pingr</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Pingr/Request.html" title="Pingr::Request (class)">Request</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Pingr/Request.html#initialize-instance_method" title="Pingr::Request#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='symbol'>:google</span><span class='comma'>,</span> <span class='id identifier rubyid_my_sitemap_url'>my_sitemap_url</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_ping'>ping</span>
-    <span class='const'><span class='object_link'><a href="Pingr.html" title="Pingr (module)">Pingr</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Pingr/Request.html" title="Pingr::Request (class)">Request</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Pingr/Request.html#initialize-instance_method" title="Pingr::Request#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='symbol'>:bing</span><span class='comma'>,</span> <span class='id identifier rubyid_my_sitemap_url'>my_sitemap_url</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_ping'>ping</span>
+    <span class='const'><span class='object_link'><a href="Pingr.html" title="Pingr (module)">Pingr</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Pingr/Request.html" title="Pingr::Request (class)">Request</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Pingr/Request.html#initialize-instance_method" title="Pingr::Request#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_my_sitemap_url'>my_sitemap_url</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 
 <span class='kw'>end</span>
 </code></pre>
 
-<p>You can ping all <a href="https://github.com/KatanaCode/pingr/blob/master/lib/pingr.rb#L9">supported search engines</a> by doing:</p>
+<p>You can view the <a href="https://github.com/KatanaCode/pingr/tree/master/lib/pingr/search_engines">supported search engines</a> and add your own by viewing the code in this directory:</p>
 
-<pre class="code ruby"><code class="ruby"><span class='kw'>def</span> <span class='id identifier rubyid_ping_sitemaps'>ping_sitemaps</span>
-  <span class='kw'>for</span> <span class='id identifier rubyid_search_engine'>search_engine</span> <span class='kw'>in</span> <span class='const'><span class='object_link'><a href="Pingr.html" title="Pingr (module)">Pingr</a></span></span><span class='op'>::</span><span class='const'>SUPPORTED_SEARCH_ENGINES</span>
-    <span class='const'><span class='object_link'><a href="Pingr.html" title="Pingr (module)">Pingr</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Pingr/Request.html" title="Pingr::Request (class)">Request</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Pingr/Request.html#initialize-instance_method" title="Pingr::Request#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_search_engine'>search_engine</span><span class='comma'>,</span> <span class='id identifier rubyid_my_sitemap_url'>my_sitemap_url</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_ping'>ping</span>
-  <span class='kw'>end</span>
-<span class='kw'>end</span>
-</code></pre>
-
-<p>... not the most elegant solution but we&#39;ll improve that in future versions.</p>
+<p><a href="https://github.com/KatanaCode/pingr/tree/master/lib/pingr/search_engines">https://github.com/KatanaCode/pingr/tree/master/lib/pingr/search_engines</a></p>
 
 <h2>Modes</h2>
 
@@ -144,7 +136,7 @@
 </div></div>
 
       <div id="footer">
-  Generated on Thu Aug 13 16:24:41 2020 by
+  Generated on Thu Aug 13 16:28:50 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.24 (ruby-2.6.6).
 </div>
