@@ -1,6 +1,6 @@
 # Pingr - Tell search engines about your sitemap changes
 
-Pingr is a super-simple gem built for the [blogit](http://github.com/KatanaCode/blogit "A Rails Blogging Engine") project.
+Pingr is a super-simple gem built for the [blogit](http://github.com/Bodacious/blogit "A Rails Blogging Engine") project.
 
 ## Installation
 
@@ -44,9 +44,9 @@ class PostsController < ActionController::Base
 end
 ```
 
-You can view the [supported search engines](https://github.com/KatanaCode/pingr/tree/master/lib/pingr/search_engines) and add your own by viewing the code in this directory:
+You can view the [supported search engines](https://github.com/Bodacious/pingr/tree/master/lib/pingr/search_engines) and add your own by viewing the code in this directory:
 
-https://github.com/KatanaCode/pingr/tree/master/lib/pingr/search_engines
+https://github.com/Bodacious/pingr/tree/master/lib/pingr/search_engines
 
 ## Modes
 
@@ -68,8 +68,3 @@ Pingr.mode = :live if Rails.env =~ /staging|production/
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
-
-
-## About Katana
-
-Katana are [web and mobile app developers in Edinburgh, Scotland](http://katanacode.com/ "Katana Code").
